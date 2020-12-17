@@ -1,7 +1,7 @@
 import { IPokerCard, IPokerCardDeck, IPokerSet, TCardValue } from "./interfaces";
 
 export class PokerSet<C extends IPokerCard, D extends IPokerCardDeck> implements IPokerSet {
-    protected sequences?: C[][];
+    protected sequences?: Map<number, number>;
     protected matrix?: (C|null)[][];
     protected matrixColumnSum?: number[];
     protected matrixRowSum?: number[];
@@ -11,9 +11,9 @@ export class PokerSet<C extends IPokerCard, D extends IPokerCardDeck> implements
         protected readonly cards: C[],
     ) {}
     
-    public getSequences(): C[][] {
+    public getSequences(): Map<number, number> {
         if (!this.sequences) {
-            const sequences = new Map();
+            this.sequences = new Map();
             const columnSum = this.getMatrixColumnSum();
 
             let last = -1;
@@ -21,27 +21,19 @@ export class PokerSet<C extends IPokerCard, D extends IPokerCardDeck> implements
                 if (sum === 0) {
                     last = -1;
                 } else {
-                    sequences.set(col, 1);
+                    this.sequences.set(col, 1);
             
                     if (last === -1) {
                         last = col;
                     } else {
                         for (let j = last; j < col; j++) {
-                            if (!sequences.has(j)) continue;
+                            if (!this.sequences.has(j)) continue;
                             
-                            let v = sequences.get(j)!;
-                            sequences.set(j, ++v);
+                            let v = this.sequences.get(j)!;
+                            this.sequences.set(j, ++v);
                         }
                     }
                 }
-            }
-
-            this.sequences = [];
-
-            for (const [k, v] of sequences.entries()) {
-                if (v <= 1) continue;
-
-                this.sequences.push(this.getCards(k, k + v));
             }
         }
 

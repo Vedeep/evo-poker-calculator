@@ -1,6 +1,6 @@
 import { IPokerCard, TCardValue } from "./IPokerCard";
 
 export interface IPokerSet {
-    getSequences(): IPokerCard[][];
+    getSequences(): Map<number, number>;
     getCardIndex(value: TCardValue): number;
 }

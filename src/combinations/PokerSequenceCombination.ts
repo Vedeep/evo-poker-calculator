@@ -18,11 +18,10 @@ export class PokerSequenceCombination extends AbstractPokerCombination<IPokerSeq
         const combinations: PokerCard[][] = [];
         const sequences = set.getSequences();
 
-        for (const sequence of sequences) {
-            if (sequence.length < this.getSequenceLength()) continue;
+        for (const [column, sum] of sequences.entries()) {
+            if (sum < this.getSequenceLength()) continue;
 
-            const cardIndex = set.getCardIndex(sequence[0].getValue());
-            const cards = set.getCards(cardIndex, cardIndex + this.getSequenceLength());
+            const cards = set.getCards(column, column + this.getSequenceLength());
         
             this.getCombinationsRecursive(combinations, cards);
         }
