@@ -26,7 +26,7 @@ export class PokerSequenceCombination extends AbstractPokerCombination<IPokerSeq
         
             this.getCombinationsRecursive(combinations, cards);
         }
-console.log(combinations)
+
         return combinations;
     }
 }

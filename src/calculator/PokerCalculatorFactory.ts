@@ -1,19 +1,28 @@
 import { ECardPosition, EPockerDeckType, PokerCardDeck } from "@app/cards";
-import { CardCountCombinationRule, CardSameSuiteCombinationRule, CardValueCombinationRule, PokerSameSuiteCombination, PokerSequenceCombination, PokerSetCombination, PokerValuesCombination } from "@app/combinations";
+import { CardCountCombinationRule, CardSameSuiteCombinationRule, CardValueCombinationRule, EPokerCombination, PokerSameSuiteCombination, PokerSequenceCombination, PokerSetCombination, PokerValuesCombination } from "@app/combinations";
+import { EPokerCalculatorGame } from "./interfaces";
 import { PokerCalculator } from "./PokerCalculator";
 
 export class PokerCalculatorFactory {
-    public static createCalculator(type: EPockerDeckType): PokerCalculator {
-        switch (type) {
-            case EPockerDeckType.HOLDEM:
-                return this.createHoldemCalculator();
+    private static instances: {[index: string]: PokerCalculator} = {};
 
-            case EPockerDeckType.OMAHA:
-                return this.createOmahaCalculator();
-
-            case EPockerDeckType.FIVE_CARD_DRAW:
-                return this.createFiveCardDrawCalculator();
+    public static createCalculator(type: EPokerCalculatorGame): PokerCalculator {
+        if (!this.instances[type]) {
+            switch (type) {
+                case EPokerCalculatorGame.HOLDEM:
+                    this.instances[type] = this.createHoldemCalculator();
+                    break;
+    
+                case EPokerCalculatorGame.OMAHA:
+                    this.instances[type] = this.createOmahaCalculator();
+                    break;
+    
+                default:
+                    this.instances[type] = this.createFiveCardDrawCalculator();
+            }
         }
+
+        return this.instances[type]
     }
 
     public static createHoldemCalculator(): PokerCalculator {
@@ -26,7 +35,7 @@ export class PokerCalculatorFactory {
             PokerCardDeck.createDeck(EPockerDeckType.OMAHA),
             [
                 new PokerSequenceCombination({
-                    id: 'Straight Flush',
+                    id: EPokerCombination.STRAIGHT_FLUSH,
                     length: 5,
                     weight: 9,
                 }, [
@@ -36,42 +45,42 @@ export class PokerCalculatorFactory {
                     new CardSameSuiteCombinationRule({}),
                 ]),
                 new PokerSetCombination({
-                    id: 'Four of a kind',
+                    id: EPokerCombination.FOUR_KIND,
                     items: [4],
                     weight: 8,
                 }, []),
                 new PokerSetCombination({
-                    id: 'Full House',
+                    id: EPokerCombination.FULL_HOUSE,
                     items: [3, 2],
                     weight: 7,
                 }, []),
                 new PokerSameSuiteCombination({
-                    id: 'Flush',
+                    id: EPokerCombination.FLUSH,
                     length: 5,
                     weight: 6,
                 }, []),
                 new PokerSequenceCombination({
-                    id: 'Straight',
+                    id: EPokerCombination.STRAIGHT,
                     length: 5,
                     weight: 5,
                 }, []),
                 new PokerValuesCombination({
-                    id: 'Straight (lower)',
+                    id: EPokerCombination.STRAIGHT_LOWER,
                     values: ['A', '2', '3', '4', '5'],
                     weight: 4,
                 }, []),
                 new PokerSetCombination({
-                    id: 'Three of a kind',
+                    id: EPokerCombination.THREE_KIND,
                     items: [3],
                     weight: 3,
                 }, []),
                 new PokerSetCombination({
-                    id: 'Two pairs',
+                    id: EPokerCombination.TWO_PAIRS,
                     items: [2, 2],
                     weight: 2,
                 }, []),
                 new PokerSetCombination({
-                    id: 'Pair',
+                    id: EPokerCombination.PAIR,
                     items: [2],
                     weight: 1,
                 }, []),
@@ -89,7 +98,7 @@ export class PokerCalculatorFactory {
             PokerCardDeck.createDeck(EPockerDeckType.OMAHA),
             [
                 new PokerSequenceCombination({
-                    id: 'Straight Flush',
+                    id: EPokerCombination.STRAIGHT_FLUSH,
                     length: 5,
                     weight: 9,
                 }, [
@@ -107,7 +116,7 @@ export class PokerCalculatorFactory {
                     }),
                 ]),
                 new PokerSetCombination({
-                    id: 'Four of a kind',
+                    id: EPokerCombination.FOUR_KIND,
                     items: [4],
                     weight: 8,
                 }, [
@@ -121,7 +130,7 @@ export class PokerCalculatorFactory {
                     }),
                 ]),
                 new PokerSetCombination({
-                    id: 'Full House',
+                    id: EPokerCombination.FULL_HOUSE,
                     items: [3, 2],
                     weight: 7,
                 }, [
@@ -135,7 +144,7 @@ export class PokerCalculatorFactory {
                     }),
                 ]),
                 new PokerSameSuiteCombination({
-                    id: 'Flush',
+                    id: EPokerCombination.FLUSH,
                     length: 5,
                     weight: 6,
                 }, [
@@ -149,7 +158,7 @@ export class PokerCalculatorFactory {
                     }),
                 ]),
                 new PokerSequenceCombination({
-                    id: 'Straight',
+                    id: EPokerCombination.STRAIGHT,
                     length: 5,
                     weight: 5,
                 }, [
@@ -163,7 +172,7 @@ export class PokerCalculatorFactory {
                     }),
                 ]),
                 new PokerValuesCombination({
-                    id: 'Straight (lower)',
+                    id: EPokerCombination.STRAIGHT_LOWER,
                     values: ['A', '2', '3', '4', '5'],
                     weight: 4,
                 }, [
@@ -177,7 +186,7 @@ export class PokerCalculatorFactory {
                     }),
                 ]),
                 new PokerSetCombination({
-                    id: 'Three of a kind',
+                    id: EPokerCombination.THREE_KIND,
                     items: [3],
                     weight: 3,
                 }, [
@@ -187,7 +196,7 @@ export class PokerCalculatorFactory {
                     }),
                 ]),
                 new PokerSetCombination({
-                    id: 'Two pairs',
+                    id: EPokerCombination.TWO_PAIRS,
                     items: [2, 2],
                     weight: 2,
                 }, [
@@ -201,7 +210,7 @@ export class PokerCalculatorFactory {
                     }),
                 ]),
                 new PokerSetCombination({
-                    id: 'Pair',
+                    id: EPokerCombination.PAIR,
                     items: [2],
                     weight: 1,
                 }, [
@@ -220,7 +229,7 @@ export class PokerCalculatorFactory {
             PokerCardDeck.createDeck(EPockerDeckType.OMAHA),
             [
                 new PokerSequenceCombination({
-                    id: 'Straight Flush',
+                    id: EPokerCombination.STRAIGHT_FLUSH,
                     length: 5,
                     weight: 9,
                 }, [
@@ -230,42 +239,42 @@ export class PokerCalculatorFactory {
                     new CardSameSuiteCombinationRule({}),
                 ]),
                 new PokerSetCombination({
-                    id: 'Four of a kind',
+                    id: EPokerCombination.FOUR_KIND,
                     items: [4],
                     weight: 8,
                 }, []),
                 new PokerSetCombination({
-                    id: 'Full House',
+                    id: EPokerCombination.FULL_HOUSE,
                     items: [3, 2],
                     weight: 7,
                 }, []),
                 new PokerSameSuiteCombination({
-                    id: 'Flush',
+                    id: EPokerCombination.FLUSH,
                     length: 5,
                     weight: 6,
                 }, []),
                 new PokerSequenceCombination({
-                    id: 'Straight',
+                    id: EPokerCombination.STRAIGHT,
                     length: 5,
                     weight: 5,
                 }, []),
                 new PokerValuesCombination({
-                    id: 'Straight (lower)',
+                    id: EPokerCombination.STRAIGHT_LOWER,
                     values: ['A', '2', '3', '4', '5'],
                     weight: 4,
                 }, []),
                 new PokerSetCombination({
-                    id: 'Three of a kind',
+                    id: EPokerCombination.THREE_KIND,
                     items: [3],
                     weight: 3,
                 }, []),
                 new PokerSetCombination({
-                    id: 'Two pairs',
+                    id: EPokerCombination.TWO_PAIRS,
                     items: [2, 2],
                     weight: 2,
                 }, []),
                 new PokerSetCombination({
-                    id: 'Pair',
+                    id: EPokerCombination.PAIR,
                     items: [2],
                     weight: 1,
                 }, []),

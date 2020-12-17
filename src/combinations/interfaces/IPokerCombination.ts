@@ -9,6 +9,19 @@ export enum EPokerCombinationType {
     VALUES = 'VALUES'
 }
 
+export enum EPokerCombination {
+    STRAIGHT_FLUSH = 'STRAIGHT_FLUSH',
+    FOUR_KIND = 'FOUR_KIND',
+    FULL_HOUSE = 'FULL_HOUSE',
+    FLUSH = 'FLUSH',
+    STRAIGHT = 'STRAIGHT',
+    STRAIGHT_LOWER = 'STRAIGHT_LOWER',
+    THREE_KIND = 'THREE_KIND',
+    TWO_PAIRS = 'TWO_PAIRS',
+    PAIR = 'PAIR',
+    HIGH_CARD = 'HIGH_CARD',
+}
+
 export interface IPokerCombination {
     fintAll(set: IPokerSet): IPokerCard[][];
     findBest(set: IPokerSet): IPokerCombinationResult|null;
@@ -20,7 +33,7 @@ export interface IPokerCombination {
 }
 
 export interface IPokerCombinationParams {
-    id: string;
+    id: string|EPokerCombination;
     weight: number;
 }
 

@@ -130,7 +130,7 @@ export class PokerSet<C extends IPokerCard, D extends IPokerCardDeck> implements
 
                 if (card) {
                     this.matrixColumnSum[i]++;
-                    this.matrixRowSum[j - 1] = (this.matrixRowSum[j - 1] || 0) + 1;
+                    this.matrixRowSum[j] = (this.matrixRowSum[j] || 0) + 1;
                 }
             }
         }

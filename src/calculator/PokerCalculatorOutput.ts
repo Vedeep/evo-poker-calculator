@@ -1,11 +1,27 @@
-import { IPokerCard } from "@app/cards";
 import { IPokerCombinationResult } from "@app/combinations";
 import { IPokerCalculatorOutput } from "./interfaces/IPokerCalculator";
 
-export class PokerCalculatorOutput implements IPokerCalculatorOutput {
+export class PokerCalculatorOutput<R extends IPokerCombinationResult> implements IPokerCalculatorOutput {
+    private equals: Set<PokerCalculatorOutput<R>> = new Set();
+
     constructor(
         public id: string|number,
-        public weight: number,
-        public combination: IPokerCombinationResult|null,
+        public combination: R,
     ) {}
+
+    public getId(): string|number {
+        return this.id;
+    }
+
+    public getCombination(): R {
+        return this.combination;
+    }
+
+    public addEqual(o: PokerCalculatorOutput<R>): void {
+        this.equals.add(o);
+    }
+
+    public isEqual(o: PokerCalculatorOutput<R>): boolean {
+        return this.equals.has(o);
+    }
 }

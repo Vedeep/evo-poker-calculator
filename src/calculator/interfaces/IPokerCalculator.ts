@@ -1,5 +1,11 @@
-import { IPokerCard, IPokerCardDeck } from "@app/cards";
-import { IPokerCombination, IPokerCombinationResult } from "@app/combinations";
+import { IPokerCard } from "@app/cards";
+import { IPokerCombinationResult } from "@app/combinations";
+
+export enum EPokerCalculatorGame  {
+    HOLDEM = 'HOLDEM',
+    OMAHA = 'OMAHA',
+    FIVE_CARD_DRAW = 'FIVE_CARD_DRAW',
+}
 
 export interface IPokerCalculator {
     calculate(handsCards: IPokerCalculatorInput[], boardCards: IPokerCard[]): IPokerCalculatorOutput[];
@@ -17,7 +23,8 @@ export interface IPokerCalculatorInput {
 }
 
 export interface IPokerCalculatorOutput {
-    id: string|number;
-    weight: number;
-    combination: IPokerCombinationResult|null;
+    getId(): string|number;
+    getCombination(): IPokerCombinationResult;
+    addEqual(o: IPokerCalculatorOutput): void;
+    isEqual(o: IPokerCalculatorOutput): boolean;
 }

@@ -15,7 +15,7 @@ export class PokerSameSuiteCombination extends AbstractPokerCombination<IPokerSa
         const result: PokerCard[][] = [];
         const matrixRowSum: number[] = set.getMatrixRowSum();
         const length: number = this.getLength();
-
+        
         for (const [row, sum] of matrixRowSum.entries()) {
             if (sum < length) continue;
 

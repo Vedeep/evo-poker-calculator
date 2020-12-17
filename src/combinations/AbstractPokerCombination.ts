@@ -2,6 +2,7 @@ import { EPokerCombinationType, IEqualsFunction, IPokerCombination, IPokerCombin
 import { IPokerCombinationRule } from "./interfaces";
 import { IPokerCard, IPokerSet } from "@app/cards";
 import { PokerCombinationResult } from "./PokerCombinationResult";
+import { Comparator } from "@app/common";
 
 export abstract class AbstractPokerCombination<P extends IPokerCombinationParams, C extends IPokerCard, U extends IPokerCombinationRule> implements IPokerCombination {
     constructor(
@@ -179,16 +180,7 @@ export abstract class AbstractPokerCombination<P extends IPokerCombinationParams
         );
 
         results.sort((r1, r2) => {
-            const w1 = r1.getWeight();
-            const w2 = r2.getWeight();
-
-            for (const i in w1) {
-                if (w1[i] === w2[i]) continue;
-
-                return w1[i] > w2[i] ? -1 : 1;
-            }
-
-            return 0;
+            return Comparator.compareCombinationResults(r1, r2);
         });
         
         return results[0];

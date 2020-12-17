@@ -1,4 +1,4 @@
-import { ECardSuit, IPokerCard, TCardSuit, TCardValue } from "./IPokerCard";
+import { TCardSuit, TCardValue } from "./IPokerCard";
 
 export interface IPokerCardDeck {
     getValues(): TCardValue[];
