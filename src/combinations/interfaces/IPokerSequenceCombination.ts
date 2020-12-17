@@ -1,8 +1,4 @@
-import { IPokerCombination, IPokerCombinationParams } from './IPokerCombination';
-
-// export interface IPokerSequenceCombination extends IPokerCombination {
-//     getSequenceLength(): number;
-// }
+import { IPokerCombinationParams } from './IPokerCombination';
 
 export interface IPokerSequenceCombinationParams extends IPokerCombinationParams  {
     length: number;

@@ -61,7 +61,7 @@ export class PokerCalculator implements IPokerCalculator {
                             extraCards.push(card);
                             availableHandCards--;
                             needCards--;
-                        };
+                        }
                         break;
 
                     default:
@@ -69,7 +69,7 @@ export class PokerCalculator implements IPokerCalculator {
                             extraCards.push(card);
                             availableTableCards--;
                             needCards--;
-                        };
+                        }
                         break;
                 }
 
@@ -85,14 +85,14 @@ export class PokerCalculator implements IPokerCalculator {
     }
 
     public calculate(handsCards: PokerCalculatorInput[], boardCards: PokerCard[]): PokerCalculatorOutput<PokerCombinationResult<PokerCard>>[] {
-        let result: PokerCalculatorOutput<PokerCombinationResult<PokerCard>>[] = [];
+        const result: PokerCalculatorOutput<PokerCombinationResult<PokerCard>>[] = [];
 
         for (const hand of handsCards) {
             const allCards = hand.cards.concat(boardCards || []);
-            const set = new PokerSet<PokerCard, PokerCardDeck>(this.deck!, allCards);
+            const set = new PokerSet<PokerCard, PokerCardDeck>(this.deck, allCards);
             let currentResult: PokerCalculatorOutput<PokerCombinationResult<PokerCard>>|null = null;
             
-            for (const c of this.combinations!) {
+            for (const c of this.combinations) {
                 const combination = c.findBest(set) as PokerCombinationResult<PokerCard>;
 
                 if (!combination) continue;
@@ -127,7 +127,7 @@ export class PokerCalculator implements IPokerCalculator {
             }
 
             return c;
-        })
+        });
 
         return result;
     }

@@ -24,7 +24,7 @@ export abstract class AbstractPokerCombination<P extends IPokerCombinationParams
         return [baseWeight, cardsWeight];
     }
 
-    protected isCardsEquals(c1: C, c2: C) {
+    protected isCardsEquals(c1: C, c2: C): boolean {
         return c1.getValue() === c2.getValue();
     }
 
@@ -32,7 +32,7 @@ export abstract class AbstractPokerCombination<P extends IPokerCombinationParams
         const result: C[][] = [];
         let prev;
         
-        for (const [i, item] of items.entries()) {
+        for (const item of items) {
             if (prev && equalsFunction(prev.item, item)) {
                 if (prev.index === -1) {
                     prev.index = result.push([prev.item]) - 1;
@@ -43,14 +43,14 @@ export abstract class AbstractPokerCombination<P extends IPokerCombinationParams
                 prev = {
                     item: item,
                     index: -1
-                }
+                };
             }
         }
     
         return Object.values(result).filter(d => d.length > 1);
     }
 
-    protected getCombinationsOfSetRecursive(result: C[][], items: C[], length: number, from: number = 0, stack: number[] = []): void {
+    protected getCombinationsOfSetRecursive(result: C[][], items: C[], length: number, from = 0, stack: number[] = []): void {
         if (items.length === length) {
             result.push(items);
             return;
@@ -67,7 +67,7 @@ export abstract class AbstractPokerCombination<P extends IPokerCombinationParams
             currentStack.push(i);
     
             if (from < length - 1) {
-                this.getCombinationsOfSetRecursive(result, items, length, from + 1, currentStack)
+                this.getCombinationsOfSetRecursive(result, items, length, from + 1, currentStack);
             } else {
                 result.push(currentStack.map(i => items[i]));
             }
@@ -79,13 +79,13 @@ export abstract class AbstractPokerCombination<P extends IPokerCombinationParams
             duplicates = this.getDuplicates(sequence, equalsFunction);
         }
     
-        const duplicatesClone = duplicates!.slice(0)
+        const duplicatesClone = duplicates!.slice(0);
         const currentDuplicates = duplicatesClone.shift() || [];
     
         for (let i = 0; i < (currentDuplicates.length || 1); i++) {
             const d = currentDuplicates[i];
             const currentResult: C[] = [];
-            let used: boolean = false;
+            let used = false;
     
             for (const s of sequence) {
                 if (d && equalsFunction(s, d)) {

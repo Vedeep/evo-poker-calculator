@@ -4,7 +4,7 @@ import { PokerCard, PokerCardDeck, PokerSet } from "@app/cards";
 
 export class PokerSameSuiteCombination extends AbstractPokerCombination<IPokerSameSuiteCombinationParams, PokerCard, IPokerCombinationRule> {
     public getType(): EPokerCombinationType {
-        return EPokerCombinationType.SAME_SUITE
+        return EPokerCombinationType.SAME_SUITE;
     }
 
     private getLength(): number {

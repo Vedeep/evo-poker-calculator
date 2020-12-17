@@ -7,13 +7,10 @@ export enum EPokerCombinationRuleType {
 }
 
 export interface IPokerCombinationRule {
-    // getType(): EPokerCombinationRuleType;
     filter(cards: IPokerCard[]): boolean;
 }
 
-export interface IPokerCombinationRuleParams {
-    // type: EPokerCombinationRuleType;
-}
+export interface IPokerCombinationRuleParams {}
 
 export interface IPokerCombinationRuleCountParams extends IPokerCombinationRuleParams {
     belongsTo?: ECardPosition;
@@ -24,4 +21,4 @@ export interface IPokerCombinationRuleValueParams extends IPokerCombinationRuleP
     values: TCardValue[];
 }
 
-export interface IPokerCombinationRuleSameSuiteParams extends IPokerCombinationRuleParams {}
+export type IPokerCombinationRuleSameSuiteParams = IPokerCombinationRuleParams;

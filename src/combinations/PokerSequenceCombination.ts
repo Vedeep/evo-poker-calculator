@@ -7,7 +7,7 @@ import { PokerSet } from "@app/cards/PokerSet";
 
 export class PokerSequenceCombination extends AbstractPokerCombination<IPokerSequenceCombinationParams, PokerCard, IPokerCombinationRule> {
     public getType(): EPokerCombinationType {
-        return EPokerCombinationType.SEQUENCE
+        return EPokerCombinationType.SEQUENCE;
     }
 
     public getSequenceLength(): number {

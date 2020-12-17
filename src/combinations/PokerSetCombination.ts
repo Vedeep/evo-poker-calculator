@@ -1,10 +1,10 @@
 import { AbstractPokerCombination } from "./AbstractPokerCombination";
 import { EPokerCombinationType, IPokerCombinationRule, IPokerSetCombinationParams, IPokerSetCombinationItem } from "./interfaces";
-import { PokerCard, PokerCardDeck, PokerSet, TCardValue } from "@app/cards";
+import { PokerCard, PokerCardDeck, PokerSet } from "@app/cards";
 
 export class PokerSetCombination extends AbstractPokerCombination<IPokerSetCombinationParams, PokerCard, IPokerCombinationRule> {
     public getType(): EPokerCombinationType {
-        return EPokerCombinationType.SET
+        return EPokerCombinationType.SET;
     }
 
     public getCombinationWeight(set: PokerSet<PokerCard, PokerCardDeck>, cards: PokerCard[]): number[] {
@@ -73,7 +73,7 @@ export class PokerSetCombination extends AbstractPokerCombination<IPokerSetCombi
                 return {
                     cards,
                     id: i
-                }
+                };
             }));
 
             return acc;

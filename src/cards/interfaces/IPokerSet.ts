@@ -1,4 +1,4 @@
-import { IPokerCard, TCardValue } from "./IPokerCard";
+import { TCardValue } from "./IPokerCard";
 
 export interface IPokerSet {
     getSequences(): Map<number, number>;

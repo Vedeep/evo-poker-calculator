@@ -6,8 +6,6 @@ import { IStdInOutParserResult } from "./interfaces";
 export type TInputPokerGame = 'texas-holdem'|'omaha-holdem'|'five-card-draw';
 
 export class StdInOutParser {
-    constructor() {}
-
     public parseInputString(str: string): IStdInOutParserResult {
         const arStrings: string[] = str.split(' ').map(s => s.trim());
         const game: EPokerCalculatorGame = this.getPokerGame(arStrings.shift() as TInputPokerGame);
@@ -28,7 +26,7 @@ export class StdInOutParser {
         const resultStrings: string[][] = [];
         let prev: PokerCalculatorOutput<PokerCombinationResult<PokerCard>>;
 
-        for (let result of results) {
+        for (const result of results) {
             if (prev! && prev!.isEqual(result)) {
                 resultStrings[resultStrings.length - 1].push(result.getId() as string);
             } else {
@@ -42,7 +40,7 @@ export class StdInOutParser {
     }
 
     private parseCards(str: string, position: ECardPosition): PokerCard[] {
-        const arStr: string[][] = str.match(/.{2}/g)?.map(s => s.split(''))!;
+        const arStr: string[][] = (str.match(/.{2}/g) || []).map(s => s.split(''))!;
 
         return arStr.map((str: string[]) => {
             return new PokerCard(

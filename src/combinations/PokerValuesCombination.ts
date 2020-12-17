@@ -4,7 +4,7 @@ import { PokerCard, PokerCardDeck, PokerSet, TCardValue } from "@app/cards";
 
 export class PokerValuesCombination extends AbstractPokerCombination<IPokerValuesCombinationParams, PokerCard, IPokerCombinationRule> {
     public getType(): EPokerCombinationType {
-        return EPokerCombinationType.VALUES
+        return EPokerCombinationType.VALUES;
     }
 
     private getValues(): TCardValue[] {

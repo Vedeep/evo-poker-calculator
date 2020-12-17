@@ -7,7 +7,7 @@ export class CardValueCombinationRule extends AbstractPokerCombinationRule<IPoke
         return this.params.values;
     }
 
-    public filter(cards: IPokerCard[]) {
+    public filter(cards: IPokerCard[]): boolean {
         return this.getValues().every(v => !!cards.find(c => c.getValue() === v));
     }
 }

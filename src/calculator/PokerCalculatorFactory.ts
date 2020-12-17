@@ -22,7 +22,7 @@ export class PokerCalculatorFactory {
             }
         }
 
-        return this.instances[type]
+        return this.instances[type];
     }
 
     public static createHoldemCalculator(): PokerCalculator {

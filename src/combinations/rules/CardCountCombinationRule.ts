@@ -3,7 +3,7 @@ import { IPokerCombinationRuleCountParams } from "../interfaces";
 import { AbstractPokerCombinationRule } from "./AbstractPokerCombinationRule";
 
 export class CardCountCombinationRule extends AbstractPokerCombinationRule<IPokerCombinationRuleCountParams> {
-    public filter(cards: IPokerCard[]) {
+    public filter(cards: IPokerCard[]): boolean {
         const from = this.params.count[0];
         const to = this.params.count.length > 1 ? this.params.count[1] : this.params.count[0];
 

@@ -1,7 +1,7 @@
 import { IPokerCard } from "@app/cards";
-import { IPokerCombinationRule, IPokerCombinationRuleParams } from "../interfaces";
+import { IPokerCombinationRule } from "../interfaces";
 
-export abstract class AbstractPokerCombinationRule<P extends IPokerCombinationRuleParams> implements IPokerCombinationRule {
+export abstract class AbstractPokerCombinationRule<P> implements IPokerCombinationRule {
     constructor(
         protected readonly params: P,
     ) {}

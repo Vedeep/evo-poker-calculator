@@ -1,9 +1,4 @@
-import { IPokerCard } from '@app/cards';
-import { IPokerCombination, IPokerCombinationParams } from './IPokerCombination';
-
-// export interface IPokerSequenceCombination extends IPokerCombination {
-//     getSequenceLength(): number;
-// }
+import { IPokerCombinationParams } from './IPokerCombination';
 
 export interface IPokerSameSuiteCombinationParams extends IPokerCombinationParams  {
     length: number;
