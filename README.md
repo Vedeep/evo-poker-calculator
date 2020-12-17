@@ -16,7 +16,7 @@ chmod +x prepare.sh
 Use the package manager npm.
 
 ```bash
-npm install
+npm install --production=false
 npm run build
 ```
 
